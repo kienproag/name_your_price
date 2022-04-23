@@ -58,24 +58,30 @@ class _HomePageState extends State<HomePage> {
                   _result = _inputPrice == products[_currentProductIndex].price
                       ? 'Pass'
                       : 'Fail';
-
-                  // if (_currentProductIndex < 4) {
-                  //   _currentProductIndex++;
-                  // }
                 });
               },
               child: const Text('Check'),
             ),
-            Text(_result),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  if (_currentProductIndex < 4) {
-                    _currentProductIndex++;
-                  }
-                });
-              },
-              child: const Text('Next'),
+            Visibility(
+              visible: _result.isNotEmpty,
+              child: Text(
+                _result,
+                key: const Key('result'),
+              ),
+            ),
+            Visibility(
+              visible: _result.isNotEmpty,
+              child: ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    _result = '';
+                    if (_currentProductIndex < 4) {
+                      _currentProductIndex++;
+                    }
+                  });
+                },
+                child: const Text('Next'),
+              ),
             ),
           ],
         ),
